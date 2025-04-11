@@ -22,20 +22,30 @@ export class AppComponent {
       this.isLoggedIn = status;
     });
     if (Capacitor.isNativePlatform()) {
-     this.platform.ready().then(async () => {
-      await StatusBar.setStyle({ style: Style.Dark }); // Use Style.Dark or Style.Light
-       await StatusBar.show(); // Ensure the status bar is visible
-     });
+      this.platform.ready().then(() => {
+        this.setStatusBar();
+        this.initPushNotifications();
+      });
     }
-    this.initPushNotifications();
+   // this.initPushNotifications();
 
     this.checkLoginStatus();
+  }
+  async setStatusBar() {
+    if (Capacitor.getPlatform() !== 'web') {
+      try {
+        await StatusBar.setStyle({ style: Style.Dark });
+        await StatusBar.show();
+      } catch (error) {
+        console.warn('StatusBar error:', error);
+      }
+    }
   }
   checkLoginStatus() {
     this.isLoggedIn = !!localStorage.getItem('token'); // Check if token exists
   }
   async initPushNotifications() {
-    if (Capacitor.isNativePlatform()) {
+    if (Capacitor.getPlatform() !== 'web') {
       const permStatus = await PushNotifications.requestPermissions();
       if (permStatus.receive === 'granted') {
         await PushNotifications.register();

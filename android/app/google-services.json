@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "291840165504",
+    "project_id": "stc-services-45aab",
+    "storage_bucket": "stc-services-45aab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291840165504:android:ca36186f405c3ea82c0865",
+        "android_client_info": {
+          "package_name": "com.techwise.stcservices"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu0h0gi6GS5DyDbKTT0LFCjc7xks-5BrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
