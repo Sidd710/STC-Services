@@ -1,0 +1,31 @@
+.table-container {
+    overflow-x: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .complaint-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  
+  .complaint-table th,
+  .complaint-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .complaint-table th {
+    background-color: #f6f6f6;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  
+  ion-chip {
+    --padding-start: 6px;
+    --padding-end: 6px;
+  }
+  

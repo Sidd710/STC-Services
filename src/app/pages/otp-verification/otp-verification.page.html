@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>OTP Verification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="otp-container">
+    <p class="instruction">Enter the 4-digit OTP sent to your email.</p>
+
+    <ion-input type="text" maxlength="6" [(ngModel)]="otp" inputmode="numeric" placeholder="123456" class="otp-input"></ion-input>
+
+    <ion-button expand="block" (click)="verifyOtp()">Verify OTP</ion-button>
+
+    <ion-text color="medium" class="resend-text">
+      Didn't receive OTP?
+      <ion-button fill="clear" size="small" (click)="resendOtp()">Resend</ion-button>
+    </ion-text>
+  </div>
+</ion-content>

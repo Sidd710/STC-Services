@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input formControlName="firstName" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input formControlName="lastName" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Mobile Number</ion-label>
+      <ion-input formControlName="mobile" type="tel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email ID</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-input formControlName="address" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Landmark</ion-label>
+      <ion-input formControlName="landmark" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Area (Auto-detected)</ion-label>
+      <ion-input formControlName="area" type="text" readonly></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="fetchLocation()">📍 Detect Location</ion-button>
+
+    <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" class="ion-margin-top">
+      Register
+    </ion-button>
+  </form>
+
+  <ion-loading [isOpen]="isLoading" message="Registering..."></ion-loading>
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Edit Complaint</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="complaintForm" (ngSubmit)="onSubmit()">
+
+    <ion-item>
+      <ion-label position="floating">Pole No</ion-label>
+      <ion-input formControlName="pole_no"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Street</ion-label>
+      <ion-input formControlName="street"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Area</ion-label>
+      <ion-input formControlName="area"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Landmark</ion-label>
+      <ion-input formControlName="landmark"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Pincode</ion-label>
+      <ion-input formControlName="pincode"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="existingImage">
+      <img [src]="existingImage" class="image-preview" />
+    </ion-item>
+
+    <ion-button *ngIf="existingImage" expand="block" color="danger" fill="outline" (click)="confirmDeleteImage()">
+      Delete Existing Image
+    </ion-button>
+
+    <ion-item>
+      <ion-label>Select New Image</ion-label>
+      <input type="file" (change)="onImageSelect($event)" />
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top">
+      Update Complaint
+    </ion-button>
+  </form>
+</ion-content>

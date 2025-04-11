@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Add Complain</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="complainForm" (ngSubmit)="submitComplain()">
+
+    <ion-item>
+      <ion-label position="floating">Pole No</ion-label>
+      <ion-input formControlName="pole_no"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Street</ion-label>
+      <ion-input formControlName="street"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Landmark</ion-label>
+      <ion-input formControlName="landmark"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Pincode</ion-label>
+      <ion-input formControlName="pincode" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Area (auto-detected)</ion-label>
+      <ion-input formControlName="area" readonly></ion-input>
+    </ion-item>
+
+    <!-- <ion-button expand="block" (click)="detectLocation()">📍 Detect Area</ion-button> -->
+
+    <ion-item lines="none">
+      <ion-button expand="block" (click)="selectImage()">📸 Capture / Select Image</ion-button>
+    </ion-item>
+    
+    <ion-item *ngIf="imagePreview">
+      <img [src]="imagePreview" style="width: 100%; max-height: 250px; object-fit: cover;" />
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="complainForm.invalid">Submit</ion-button>
+  </form>
+  <ion-loading [isOpen]="isLoading" message="Please wait..."></ion-loading>
+
+</ion-content>

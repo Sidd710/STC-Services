@@ -1,0 +1,7 @@
+{
+  "name": "STC Services",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>📋 My Complaints</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="filterComplaints()"
+    placeholder="Search complaints..."
+    showClearButton="focus"
+    animated
+  ></ion-searchbar>
+
+  <div class="table-container">
+    <table class="complaint-table">
+      <thead>
+        <tr>
+          <th>Pole No</th>
+          <th>Street</th>
+          <th>Area</th>
+          <th>Pincode</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of filteredComplaints">
+          <td>{{ item.pole_no }}</td>
+          <td>{{ item.street }}</td>
+          <td>{{ item.area }}</td>
+          <td>{{ item.pincode }}</td>
+          <td>
+            <ion-chip size="small" [color]="item.status === '1' ? 'success' : 'medium'">
+              <ion-label>{{ item.status === '1' ? 'Active' : 'Inactive' }}</ion-label>
+            </ion-chip>
+          </td>
+          <td>{{ item.created_at | date: 'short' }}</td>
+          <td>
+            <ion-button fill="clear" size="small" color="primary" (click)="editComplaint(item.id)">
+              <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" size="small" color="danger" (click)="deleteComplaint(item.id)">
+              <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="filteredComplaints.length === 0" class="ion-text-center ion-padding">
+      <ion-icon name="document-outline" size="large" color="medium"></ion-icon>
+      <p>No complaints found.</p>
+    </div>
+  </div>
+</ion-content>

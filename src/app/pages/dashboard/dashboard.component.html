@@ -1,0 +1,7 @@
+<!-- src/app/pages/dashboard/dashboard.page.html -->
+<ion-header><ion-toolbar><ion-title>Dashboard</ion-title></ion-toolbar></ion-header>
+<ion-content class="ion-padding">
+  <p>Welcome, {{ user?.username }}!</p>
+  <p>Your role: {{ user?.role }}</p>
+  <ion-button expand="block" color="danger" (click)="logout()">Logout</ion-button>
+</ion-content>

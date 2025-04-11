@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item button (click)="goTo('view-profile')">
+      <ion-label>👤 View Profile</ion-label>
+    </ion-item>
+
+    <ion-item button (click)="goTo('reset-password')">
+      <ion-label>🔒 Reset Password</ion-label>
+    </ion-item>
+
+    <ion-item button (click)="logout()">
+      <ion-label color="danger">🚪 Logout</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
