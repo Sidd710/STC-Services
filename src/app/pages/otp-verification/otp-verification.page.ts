@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./otp-verification.page.scss'],
 })
 export class OtpVerificationPage implements OnInit {
-  otp: string = '';
+  otp: string[] = ['', '', '', ''];
   email: string = '';
 
   constructor(
@@ -25,11 +25,23 @@ export class OtpVerificationPage implements OnInit {
   ngOnInit() {
   
   }
+  moveNext(event: any, index: number) {
+    const input = event.target;
+    const value = input.value;
+    if (value.length === 1 && index < 5) {
+      const nextInput = input.nextElementSibling;
+      if (nextInput) nextInput.focus();
+    }
+  }
 
   async verifyOtp() {
 
-
-    const requestData = { otp: this.otp };
+    const code = this.otp.join('');
+    if (code.length !== 6) {
+      this.showToast('Please enter all 4 digits.', 'danger');
+      return;
+    }
+    const requestData = { otp: code };
 
     this.apiService.post('auth/verifyotp', requestData).subscribe(
       (response: any) => {

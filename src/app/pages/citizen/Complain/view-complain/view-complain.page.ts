@@ -15,6 +15,15 @@ export class ViewComplainPage implements OnInit {
 
   complaints: any[] = [];
   filteredComplaints: any[] = [];
+  statusFilters = [
+    { label: 'All', value: 'all' },
+    { label: 'Active', value: '1' },
+    { label: 'Inactive', value: '0' },
+    { label: 'Resolved', value: '2' }, // if applicable
+  ];
+  selectedStatus: string = 'all';
+
+  
   searchTerm = '';
   constructor(
     private http: HttpClient,
@@ -25,6 +34,10 @@ export class ViewComplainPage implements OnInit {
   ngOnInit() {
     this.fetchComplaints();
   }
+  applyStatusFilter(status: string) {
+    this.selectedStatus = status;
+    this.filterComplaints();
+  }
   ionViewWillEnter() {
     this.searchTerm = '';
     this.fetchComplaints();
@@ -33,8 +46,8 @@ export class ViewComplainPage implements OnInit {
   fetchComplaints() {
     this.apiService.get<any>('Complaints/mycomplaints').subscribe({
       next: (res) => {
-        if (res.status && res.active_complaints) {
-          this.complaints = res.active_complaints;
+        if (res.status && res.all_complaints) {
+          this.complaints = res.all_complaints;
           this.filteredComplaints = [...this.complaints];
         
         } else {
@@ -45,12 +58,19 @@ export class ViewComplainPage implements OnInit {
     });
   }
   filterComplaints() {
-    const term = this.searchTerm.toLowerCase();
-    this.filteredComplaints = this.complaints.filter(item =>
-      Object.values(item).some(val =>
-        typeof val === 'string' && val.toLowerCase().includes(term)
-      )
-    );
+    const search = this.searchTerm?.toLowerCase() || '';
+  
+    this.filteredComplaints = this.complaints.filter(item => {
+      const matchesSearch =
+        item.pole_no?.toLowerCase().includes(search) ||
+        item.street?.toLowerCase().includes(search) ||
+        item.area?.toLowerCase().includes(search);
+  
+      const matchesStatus =
+        this.selectedStatus === 'all' || item.status === this.selectedStatus;
+  
+      return matchesSearch && matchesStatus;
+    });
   }
 
   editComplaint(complaintId: string) {

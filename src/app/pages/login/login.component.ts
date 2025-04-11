@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,13 +11,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  username = '';
-  password = '';
+ 
   error = '';
   isLoading = false;
-
+  loginForm!: FormGroup;
   constructor(private authService: AuthService, private router: Router, private loadingCtrl: LoadingController, private toastCtrl: ToastController,
-
+    private fb: FormBuilder,
   ) { }
   loading: HTMLIonLoadingElement | null = null;
   async presentLoading() {
@@ -34,6 +34,11 @@ export class LoginComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email_id: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      fcm_token:'asd'
+    });
 
     const isLoggedIn = !!localStorage.getItem('token');
     if (isLoggedIn) {
@@ -47,14 +52,14 @@ export class LoginComponent implements OnInit {
   }
 
 async onLogin() {
-    const payload = {
-      email_id: this.username,
-      password: this.password,
-      fcm_token: "1",
-    }
+    // const payload = {
+    //   email_id: this.username,
+    //   password: this.password,
+    //   fcm_token: "1",
+    // }
     await this.presentLoading();
     //credentials = { email: '', password: '',fcm_token:'' };
-    this.authService.login(payload).subscribe(
+    this.authService.login(this.loginForm.value).subscribe(
       (response: any) => {
         
         debugger;

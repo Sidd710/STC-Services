@@ -1,7 +1,54 @@
-<!-- src/app/pages/dashboard/dashboard.page.html -->
-<ion-header><ion-toolbar><ion-title>Dashboard</ion-title></ion-toolbar></ion-header>
-<ion-content class="ion-padding">
-  <p>Welcome, {{ user?.username }}!</p>
-  <p>Your role: {{ user?.role }}</p>
-  <ion-button expand="block" color="danger" (click)="logout()">Logout</ion-button>
+<ion-content class="dashboard-bg" [fullscreen]="true">
+  <div class="dashboard-wrapper">
+
+    <!-- Welcome -->
+    <div class="welcome-card">
+      <img src="assets/app-logo.png" class="dashboard-logo" />
+      <h2>Welcome, {{ user?.first_name }}</h2>
+      <!-- <p class="location">📍 {{ user?.area }}</p> -->
+    </div>
+
+    <!-- Complaint Stats -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="3">
+          <div class="status-box total">
+            <h3>{{ stats.total }}</h3>
+            <p>Total Complaints</p>
+          </div>
+        </ion-col>
+    
+        <ion-col size="12" size-md="3">
+          <div class="status-box ongoing">
+            <h3>{{ stats.ongoing }}</h3>
+            <p>Ongoing</p>
+          </div>
+        </ion-col>
+    
+        <ion-col size="12" size-md="3">
+          <div class="status-box pending">
+            <h3>{{ stats.pending }}</h3>
+            <p>Pending</p>
+          </div>
+        </ion-col>
+    
+        <ion-col size="12" size-md="3">
+          <div class="status-box completed">
+            <h3>{{ stats.completed }}</h3>
+            <p>Completed</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+
+    
+
+    <!-- CTA -->
+    <ion-button expand="block" class="cta-button" routerLink="/citizen-tabs/add-complaint">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      Add New Complaint
+    </ion-button>
+
+  </div>
 </ion-content>
