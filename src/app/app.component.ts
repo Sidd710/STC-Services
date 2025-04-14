@@ -34,7 +34,7 @@ export class AppComponent {
   async setStatusBar() {
     if (Capacitor.getPlatform() !== 'web') {
       try {
-        await StatusBar.setStyle({ style: Style.Dark });
+        await StatusBar.setStyle({ style: Style.Default });
         await StatusBar.show();
       } catch (error) {
         console.warn('StatusBar error:', error);
