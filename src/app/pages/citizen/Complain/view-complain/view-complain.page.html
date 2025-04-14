@@ -50,9 +50,12 @@
 
           <ion-card-content>
             <div class="details">
+              <div><strong>Type:</strong> {{ item.complaint_type }}</div>
               <div><strong>Street:</strong> {{ item.street }}</div>
               <div><strong>Area:</strong> {{ item.area }}</div>
               <div><strong>Pincode:</strong> {{ item.pincode }}</div>
+              <div *ngIf="item.landmark"><strong>Landmark:</strong> {{ item.landmark }}</div>
+              <div><strong>Created:</strong> {{ item.created_at | date: 'short' }}</div>
             </div>
 
             <div class="card-actions">

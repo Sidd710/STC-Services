@@ -1,11 +1,16 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button> -->
+    <!-- </ion-buttons> -->
     <ion-title>Add Complaint</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="add-complain-bg" [fullscreen]="true">
-  <div class="form-card">
+  <div class="form-wrapper">
 
     <form [formGroup]="complainForm" (ngSubmit)="submitComplain()">
 
@@ -32,29 +37,31 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Area (auto-detected)</ion-label>
+          <ion-label position="floating">Area (Auto-detected)</ion-label>
           <ion-input formControlName="area" readonly></ion-input>
         </ion-item>
 
-        <div class="image-section">
-          <ion-button expand="block" color="medium" fill="outline" (click)="selectImage()">
-            <ion-icon name="camera-outline" slot="start"></ion-icon>
-            Capture / Select Image
-          </ion-button>
+      </ion-list>
 
-          <div *ngIf="imagePreview" class="image-preview">
-            <img [src]="imagePreview" />
-          </div>
+      <div class="image-section">
+        <ion-button expand="block" color="medium" fill="outline" (click)="selectImage()">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          Capture / Select Image
+        </ion-button>
+
+        <div *ngIf="imagePreview" class="image-preview">
+          <img [src]="imagePreview" />
         </div>
+      </div>
 
+      <div class="button-group">
         <ion-button expand="block" type="submit" color="primary" [disabled]="complainForm.invalid">
           Submit Complaint
         </ion-button>
-
-      </ion-list>
+      </div>
 
     </form>
-  </div>
 
-  <ion-loading [isOpen]="isLoading" message="Please wait..."></ion-loading>
+    <ion-loading [isOpen]="isLoading" message="Please wait..."></ion-loading>
+  </div>
 </ion-content>
