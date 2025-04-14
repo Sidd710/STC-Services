@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { DashboardPage } from './pages/dashboard/dashboard.component';
+import { DashboardPage } from './pages/citizen/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { TabsPage } from './pages/citizen/tabs/tabs.page';
 import { ViewComplainPage } from './pages/citizen/Complain/view-complain/view-complain.page';

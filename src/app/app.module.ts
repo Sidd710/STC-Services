@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { DashboardPage } from './pages/dashboard/dashboard.component';
+import { DashboardPage } from './pages/citizen/dashboard/dashboard.component';
 import { TabsPage } from './pages/citizen/tabs/tabs.page';
 import { ViewComplainPage } from './pages/citizen/Complain/view-complain/view-complain.page';
 import { AddComplainPage } from './pages/citizen/Complain/add-complain/add-complain.page';
@@ -19,6 +19,8 @@ import { ResetPasswordPage } from './pages/citizen/profile/reset-password/reset-
 import { ViewProfilePage } from './pages/citizen/profile/view-profile/view-profile.page';
 import { EditComplaintPage } from './pages/citizen/Complain/edit-complaint/edit-complaint.page';
 import { ForgotPasswordPage } from './pages/forgot-password/forgot-password.page';
+import { Diagnostic } from '@awesome-cordova-plugins/diagnostic/ngx';
+import { AwesomeCordovaNativePlugin } from '@awesome-cordova-plugins/core';
 
 
 
@@ -45,7 +47,7 @@ import { ForgotPasswordPage } from './pages/forgot-password/forgot-password.page
     
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy } 
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },Diagnostic
   ],
   bootstrap: [AppComponent]
 })

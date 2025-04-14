@@ -5,6 +5,8 @@ import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { Geolocation } from '@capacitor/geolocation';
+import { Diagnostic } from '@awesome-cordova-plugins/diagnostic/ngx';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,9 @@ export class AppComponent {
   isLoggedIn = false;
   userType:string | null = null;
   userCode:any;
-  constructor(private router:Router,private authService: AuthService,private platform: Platform,private cdr: ChangeDetectorRef) {
+  constructor(private router:Router,private authService: AuthService,private platform: Platform,private cdr: ChangeDetectorRef,  
+    private diagnostic: Diagnostic
+  ) {
    
     this.authService.isLoggedIn$.subscribe(status => {
       this.isLoggedIn = status;
@@ -34,8 +38,9 @@ export class AppComponent {
   async setStatusBar() {
     if (Capacitor.getPlatform() !== 'web') {
       try {
-        await StatusBar.setStyle({ style: Style.Default });
-        await StatusBar.show();
+        await StatusBar.setStyle({ style: Style.Light });
+      await StatusBar.setBackgroundColor({ color: '#f7f7f7' });
+      await StatusBar.show();
       } catch (error) {
         console.warn('StatusBar error:', error);
       }
@@ -72,6 +77,30 @@ export class AppComponent {
       PushNotifications.addListener('pushNotificationActionPerformed', (action:any) => {
         console.log('Notification Clicked:', action);
       });
+    }
+  }
+  async requestLocation() {
+    try {
+      const permission = await Geolocation.requestPermissions();
+      const status = await Geolocation.checkPermissions();
+
+      if (status.location === 'granted') {
+        const position = await Geolocation.getCurrentPosition();
+        console.log('Latitude:', position.coords.latitude);
+        console.log('Longitude:', position.coords.longitude);
+      } else if (status.location === 'denied') {
+        alert('Location permission denied. Please enable it in settings.');
+        const openSettings = confirm('Would you like to open app settings to enable location?');
+        if (openSettings) {
+          this.diagnostic.switchToSettings();
+        }
+      }
+    } catch (error: any) {
+      if (error.code === 1) {
+        console.log('User denied the request for Geolocation.');
+      } else {
+        console.log('Error getting location:', error.message);
+      }
     }
   }
 }
