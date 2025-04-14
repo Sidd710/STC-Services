@@ -1,52 +1,73 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goToLogin()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-    <ion-item>
-      <ion-label position="floating">First Name</ion-label>
-      <ion-input formControlName="firstName" type="text"></ion-input>
-    </ion-item>
+<ion-content class="register-bg" [fullscreen]="true">
 
-    <ion-item>
-      <ion-label position="floating">Last Name</ion-label>
-      <ion-input formControlName="lastName" type="text"></ion-input>
-    </ion-item>
+  <div class="form-wrapper">
 
-    <ion-item>
-      <ion-label position="floating">Mobile Number</ion-label>
-      <ion-input formControlName="mobile" type="tel"></ion-input>
-    </ion-item>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
 
-    <ion-item>
-      <ion-label position="floating">Email ID</ion-label>
-      <ion-input formControlName="email" type="email"></ion-input>
-    </ion-item>
+      <ion-list lines="none">
 
-    <ion-item>
-      <ion-label position="floating">Address</ion-label>
-      <ion-input formControlName="address" type="text"></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input formControlName="firstName" type="text"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Landmark</ion-label>
-      <ion-input formControlName="landmark" type="text"></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input formControlName="lastName" type="text"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Area (Auto-detected)</ion-label>
-      <ion-input formControlName="area" type="text" readonly></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-label position="floating">Mobile Number</ion-label>
+          <ion-input formControlName="mobile" type="tel"></ion-input>
+        </ion-item>
 
-    <ion-button expand="block" (click)="fetchLocation()">📍 Detect Location</ion-button>
+        <ion-item>
+          <ion-label position="floating">Email ID</ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
 
-    <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" class="ion-margin-top">
-      Register
-    </ion-button>
-  </form>
+        <ion-item>
+          <ion-label position="floating">Address</ion-label>
+          <ion-input formControlName="address" type="text"></ion-input>
+        </ion-item>
 
-  <ion-loading [isOpen]="isLoading" message="Registering..."></ion-loading>
+        <ion-item>
+          <ion-label position="floating">Landmark</ion-label>
+          <ion-input formControlName="landmark" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Area (Auto-detected)</ion-label>
+          <ion-input formControlName="area" type="text" readonly></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <div class="button-group">
+        <ion-button expand="block" color="medium" fill="outline" (click)="fetchLocation()">
+          📍 Detect Location
+        </ion-button>
+
+        <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">
+          Register
+        </ion-button>
+      </div>
+
+    </form>
+
+    <ion-loading [isOpen]="isLoading" message="Registering..."></ion-loading>
+
+  </div>
+
 </ion-content>

@@ -44,6 +44,9 @@ export class RegisterComponent implements OnInit {
     this.fetchLocation();
 
   }
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
 
   async fetchLocation() {
     try {

@@ -50,7 +50,9 @@ export class ForgotPasswordPage {
       this.showToast('Something went wrong.', 'danger');
     }
   }
-
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
   async showToast(message: string, color: string) {
     const toast = await this.toastCtrl.create({
       message,

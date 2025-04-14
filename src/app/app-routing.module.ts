@@ -14,6 +14,8 @@ import { ResetPasswordPage } from './pages/citizen/profile/reset-password/reset-
 import { ViewProfilePage } from './pages/citizen/profile/view-profile/view-profile.page';
 import { EditComplaintPage } from './pages/citizen/Complain/edit-complaint/edit-complaint.page';
 import { ForgotPasswordPage } from './pages/forgot-password/forgot-password.page';
+import { AdminTabsPage } from './pages/admin/admin-tabs/admin-tabs.page';
+import { AdminViewComplainPage } from './pages/admin/admin-view-complain/admin-view-complain.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -76,6 +78,18 @@ const routes: Routes = [
     component:ForgotPasswordPage
   },
  
+  {
+    path: 'admin-tabs',
+    component: AdminTabsPage,
+    canActivate: [AuthGuard],
+    children: [
+      
+      {
+        path: 'viewcomplain',
+        component: AdminViewComplainPage,
+      },
+    ]
+    }
 
  
 ];

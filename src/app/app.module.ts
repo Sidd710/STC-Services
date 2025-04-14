@@ -21,6 +21,8 @@ import { EditComplaintPage } from './pages/citizen/Complain/edit-complaint/edit-
 import { ForgotPasswordPage } from './pages/forgot-password/forgot-password.page';
 import { Diagnostic } from '@awesome-cordova-plugins/diagnostic/ngx';
 import { AwesomeCordovaNativePlugin } from '@awesome-cordova-plugins/core';
+import { AdminTabsPage } from './pages/admin/admin-tabs/admin-tabs.page';
+import { AdminViewComplainPage } from './pages/admin/admin-view-complain/admin-view-complain.page';
 
 
 
@@ -35,7 +37,7 @@ import { AwesomeCordovaNativePlugin } from '@awesome-cordova-plugins/core';
     AddComplainPage,
     ProfilePage,
     OtpVerificationPage,
-    ResetPasswordPage,ViewProfilePage,ResetPasswordPage,EditComplaintPage,ForgotPasswordPage
+    ResetPasswordPage,ViewProfilePage,ResetPasswordPage,EditComplaintPage,ForgotPasswordPage,AdminTabsPage,AdminViewComplainPage
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>All Complaints</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="view-complain-bg" [fullscreen]="true">
+
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="filterComplaints()"
+    placeholder="Search complaints..."
+    showClearButton="focus"
+    animated
+  ></ion-searchbar>
+
+  <div class="status-filters">
+    <ion-chip
+      *ngFor="let filter of statusFilters"
+      [color]="filter.value === selectedStatus ? 'primary' : 'light'"
+      (click)="applyStatusFilter(filter.value)"
+    >
+      <ion-label>{{ filter.label }}</ion-label>
+    </ion-chip>
+  </div>
+
+  <ion-grid class="complaint-grid">
+    <ion-row>
+      <ion-col
+        *ngFor="let item of filteredComplaints"
+        size="12" size-sm="6" size-md="4" size-lg="3"
+      >
+        <ion-card class="compact-card">
+
+          <ion-card-header>
+            <ion-card-title class="pole-title">{{ item.pole_no }}</ion-card-title>
+            <ion-chip
+              [color]="getStatusColor(item.complaint_status)"
+              size="small"
+              slot="end"
+            >
+              <ion-label>{{ item.complaint_status }}</ion-label>
+            </ion-chip>
+          </ion-card-header>
+
+          <ion-card-content>
+
+            <div *ngIf="item.img_url && item.img_url !== '---'" class="image-preview">
+              <img [src]="item.img_url" />
+            </div>
+
+            <div class="details">
+              <div><strong>Type:</strong> {{ item.complaint_type }}</div>
+              <div><strong>Street:</strong> {{ item.street }}</div>
+              <div><strong>Area:</strong> {{ item.area }}</div>
+              <div><strong>Pincode:</strong> {{ item.pincode }}</div>
+              <div *ngIf="item.landmark"><strong>Landmark:</strong> {{ item.landmark }}</div>
+              <div><strong>Created:</strong> {{ item.created_at | date: 'short' }}</div>
+            </div>
+
+            <div class="card-actions">
+              <ion-button fill="clear" size="small" color="primary" (click)="editComplaint(item.id)">
+                <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" size="small" color="danger" (click)="deleteComplaint(item.id)">
+                <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" size="small" color="medium" (click)="openMap(item.pincode)">
+                <ion-icon name="location-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
+
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="filteredComplaints.length === 0" class="no-data">
+    <ion-icon name="document-outline" size="large" color="medium"></ion-icon>
+    <p>No complaints found.</p>
+  </div>
+</ion-content>
