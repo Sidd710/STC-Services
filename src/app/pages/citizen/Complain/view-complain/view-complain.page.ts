@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/apiService';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-complain',
@@ -17,8 +18,8 @@ export class ViewComplainPage implements OnInit {
   filteredComplaints: any[] = [];
   statusFilters = [
     { label: 'All', value: 'all' },
-    { label: 'Active', value: '1' },
-    { label: 'Inactive', value: '0' },
+    { label: 'Ongoing', value: '1' },
+    { label: 'Pending', value: '0' },
     { label: 'Resolved', value: '2' }, // if applicable
   ];
   selectedStatus: string = 'all';
@@ -29,10 +30,14 @@ export class ViewComplainPage implements OnInit {
     private http: HttpClient,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
-    private router: Router,private apiService:ApiService
+    private router: Router,private apiService:ApiService,
+    private location:Location
   ) {}
   ngOnInit() {
     this.fetchComplaints();
+  }
+  goBack() {
+    this.location.back();
   }
   applyStatusFilter(status: string) {
     this.selectedStatus = status;

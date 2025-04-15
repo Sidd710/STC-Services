@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ApiService } from 'src/app/services/apiService';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-complain',
@@ -22,17 +23,26 @@ export class AddComplainPage implements OnInit {
   imageFile!: File;
   imagePreview?: string;
   isLoading = false;
+  complaintTypes = [
+    { id: '1', complaint_type: 'Broken Pole' },
+    { id: '2', complaint_type: 'Bad Lighting' },
+    { id: '3', complaint_type: 'Power Cut' },
+    { id: '4', complaint_type: 'Electrical Failure' },
+    { id: '5', complaint_type: 'Fire' },
+    { id: '6', complaint_type: 'Apocalypse' }
+  ];
 
 
   constructor(
     private fb: FormBuilder,
     private toastCtrl: ToastController,
     private locationService: LocationService,
-    private http: HttpClient, private apiService: ApiService,private router:Router
+    private http: HttpClient, private apiService: ApiService,private router:Router,private location: Location
   ) { }
 
   ngOnInit() {
     this.complainForm = this.fb.group({
+      complaint_type: ['', Validators.required],
       pole_no: ['', Validators.required],
       street: ['', Validators.required],
       landmark: ['', Validators.required],
@@ -42,7 +52,9 @@ export class AddComplainPage implements OnInit {
 
     this.detectLocation(); // auto-detect on load
   }
-
+  goBack() {
+    this.location.back();
+  }
   async detectLocation() {
     try {
       const position = await this.getCurrentPosition();
@@ -104,12 +116,17 @@ export class AddComplainPage implements OnInit {
 
     this.apiService.postPhoto('complaints/addcomplaint', formData).subscribe(
       (event: any) => {
-        debugger;
         this.isLoading = false;
 
         this.showToast('Complaint logged  successfully', 'success');
-        this.complainForm.reset();
-        this.router.navigate(['/citizen-tabs/view-complain']);
+        setTimeout(() => {
+          this.router.navigate(['/citizen-tabs/view-complain']);
+          this.router.navigate(['/login']);
+        }, 500);
+
+       
+       
+       
         
 
       },

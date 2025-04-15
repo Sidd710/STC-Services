@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/apiService';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin-view-complain',
@@ -21,12 +22,14 @@ export class AdminViewComplainPage {
     { label: 'Closed', value: 'Closed' }
   ];
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router,private location: Location) {}
 
   ionViewWillEnter() {
     this.loadComplaints();
   }
-
+  goBack() {
+    this.location.back();
+  }
   loadComplaints() {
     this.api.get('users/allcomplaints').subscribe((res: any) => {
       if (res.status) {

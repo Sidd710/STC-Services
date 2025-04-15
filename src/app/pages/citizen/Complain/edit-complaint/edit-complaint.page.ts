@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ToastController, AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/apiService';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-complaint',
@@ -17,6 +18,14 @@ export class EditComplaintPage implements OnInit {
   existingImage: string = '';
   newImageFile?: File;
   imageDeleted = false;
+  complaintTypes = [
+    { id: '1', complaint_type: 'Broken Pole' },
+    { id: '2', complaint_type: 'Bad Lighting' },
+    { id: '3', complaint_type: 'Power Cut' },
+    { id: '4', complaint_type: 'Electrical Failure' },
+    { id: '5', complaint_type: 'Fire' },
+    { id: '6', complaint_type: 'Apocalypse' }
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +34,7 @@ export class EditComplaintPage implements OnInit {
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private router: Router,
-    private apiService:ApiService
+    private apiService:ApiService,private location: Location
   ) {}
 
   ngOnInit() {
@@ -33,9 +42,12 @@ export class EditComplaintPage implements OnInit {
     this.buildForm();
     this.loadComplaint();
   }
-
+  goBack() {
+    this.location.back();
+  }
   buildForm() {
     this.complaintForm = this.fb.group({
+      complaint_type: ['', Validators.required],
       pole_no: ['', Validators.required],
       street: ['', Validators.required],
       area: ['', Validators.required],
@@ -54,6 +66,7 @@ export class EditComplaintPage implements OnInit {
       next: res => {
         const data = res.complaint;
         this.complaintForm.patchValue({
+          complaint_type:data.complaint_type,
           pole_no: data.pole_no,
           street: data.street,
           area: data.area,
@@ -105,6 +118,7 @@ export class EditComplaintPage implements OnInit {
     formData.append('area', this.complaintForm.value.area);
     formData.append('landmark', this.complaintForm.value.landmark);
     formData.append('pincode', this.complaintForm.value.pincode);
+    formData.append('complaint_type',this.complaintForm.value.complaint_type)
     formData.append('complaint_id', this.complaintId); // Assuming required for update
 
     if (this.newImageFile) {
