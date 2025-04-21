@@ -16,6 +16,8 @@ import { EditComplaintPage } from './pages/citizen/Complain/edit-complaint/edit-
 import { ForgotPasswordPage } from './pages/forgot-password/forgot-password.page';
 import { AdminTabsPage } from './pages/admin/admin-tabs/admin-tabs.page';
 import { AdminViewComplainPage } from './pages/admin/admin-view-complain/admin-view-complain.page';
+import { ComplaincloseComponent } from './pages/admin/complainclose/complainclose.component';
+import { AdminProfilePage } from './pages/admin/profile/profile.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -87,6 +89,14 @@ const routes: Routes = [
       {
         path: 'viewcomplain',
         component: AdminViewComplainPage,
+      },
+      {
+        path: 'complainsolve/:id',
+        component: ComplaincloseComponent,
+      },
+      {
+        path: 'profile',
+        component: AdminProfilePage,
       },
     ]
     }

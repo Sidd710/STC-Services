@@ -70,7 +70,7 @@ export class AdminViewComplainPage {
   }
 
   editComplaint(id: string) {
-    this.router.navigate(['/edit-complaint', id]);
+    this.router.navigate(['/admin-tabs/complainsolve', id]);
   }
 
   deleteComplaint(id: string) {

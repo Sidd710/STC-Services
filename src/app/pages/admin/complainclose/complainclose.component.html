@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Solve Complaint</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="solve-bg" [fullscreen]="true">
+  <div class="form-wrapper ion-padding">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Pole No: {{ complaint?.pole_no }}</ion-card-title>
+        <ion-card-subtitle>Status: {{ complaint?.complaint_status }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <p><strong>Type:</strong> {{ complaint?.complaint_type }}</p>
+
+        <form [formGroup]="statusForm" (ngSubmit)="submitStatusChange()">
+
+          <div *ngIf="complaint?.complaint_status === 'Open'">
+            <ion-list>
+              <ion-radio-group formControlName="status">
+                <ion-item>
+                  <ion-label>Ongoing</ion-label>
+                  <ion-radio slot="start" value="2"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Closed</ion-label>
+                  <ion-radio slot="start" value="3"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+          </div>
+
+          <div *ngIf="complaint?.complaint_status === 'Ongoing'">
+            <ion-list>
+              <ion-radio-group formControlName="status">
+                <ion-item>
+                  <ion-label>Closed</ion-label>
+                  <ion-radio slot="start" value="3"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+          </div>
+
+          <div *ngIf="complaint?.complaint_status === 'Closed'">
+            <ion-list>
+              <ion-radio-group formControlName="status">
+                <ion-item>
+                  <ion-label>Reopen</ion-label>
+                  <ion-radio slot="start" value="4"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Citizen's Issue</ion-label>
+            <ion-textarea formControlName="citizen_issue"  auto-grow="true"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Work Done</ion-label>
+            <ion-textarea formControlName="work_done" auto-grow="true"></ion-textarea>
+          </ion-item>
+
+          <div class="ion-margin-top" *ngIf="complaint?.complaint_status !== 'Closed'">
+            <ion-button expand="block" type="submit" [disabled]="statusForm.invalid">
+              Update Status
+            </ion-button>
+          </div>
+
+        </form>
+
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>

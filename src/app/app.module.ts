@@ -23,6 +23,8 @@ import { Diagnostic } from '@awesome-cordova-plugins/diagnostic/ngx';
 import { AwesomeCordovaNativePlugin } from '@awesome-cordova-plugins/core';
 import { AdminTabsPage } from './pages/admin/admin-tabs/admin-tabs.page';
 import { AdminViewComplainPage } from './pages/admin/admin-view-complain/admin-view-complain.page';
+import { ComplaincloseComponent } from './pages/admin/complainclose/complainclose.component';
+import { AdminProfilePage } from './pages/admin/profile/profile.page';
 
 
 
@@ -37,7 +39,7 @@ import { AdminViewComplainPage } from './pages/admin/admin-view-complain/admin-v
     AddComplainPage,
     ProfilePage,
     OtpVerificationPage,
-    ResetPasswordPage,ViewProfilePage,ResetPasswordPage,EditComplaintPage,ForgotPasswordPage,AdminTabsPage,AdminViewComplainPage
+    ResetPasswordPage,ViewProfilePage,ResetPasswordPage,EditComplaintPage,ForgotPasswordPage,AdminTabsPage,AdminViewComplainPage,ComplaincloseComponent,AdminProfilePage
   ],
   imports: [
     BrowserModule,
