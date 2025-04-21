@@ -38,6 +38,8 @@ export class AppComponent {
   async setStatusBar() {
     if (Capacitor.getPlatform() !== 'web') {
       try {
+       await StatusBar.setOverlaysWebView({ overlay: false });
+
         await StatusBar.setStyle({ style: Style.Light });
       await StatusBar.setBackgroundColor({ color: '#f7f7f7' });
       await StatusBar.show();

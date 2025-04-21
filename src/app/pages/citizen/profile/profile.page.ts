@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 export class ProfilePage {
   constructor(
     private router: Router,
+    private location:Location
    
   ) {}
 
@@ -21,5 +23,8 @@ export class ProfilePage {
     
     localStorage.clear();
     this.router.navigate(['/login'], { replaceUrl: true });
+  }
+  goBack() {
+    this.location.back();
   }
 }

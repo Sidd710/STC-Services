@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/apiService';
 import { AuthService } from 'src/app/services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-reset-password',
@@ -18,7 +19,7 @@ export class ResetPasswordPage {
   constructor(
     private fb: FormBuilder,
     private toastCtrl: ToastController,
-    private apiService: ApiService,private authService:AuthService,private router:Router
+    private apiService: ApiService,private authService:AuthService,private router:Router,private location:Location
   ) {
     this.resetForm = this.fb.group({
       old_password: ['', Validators.required],
@@ -34,7 +35,9 @@ export class ResetPasswordPage {
     const confirmPass = group.get('confirm_password')?.value;
     return newPass === confirmPass ? null : { mismatch: true };
   }
-
+  goBack() {
+    this.location.back();
+  }
   async onSubmit() {
     this.submitted = true;
 

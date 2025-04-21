@@ -33,7 +33,11 @@ export class LoginComponent implements OnInit {
       this.loading = null;
     }
   }
+  ionViewWillEnter() {
+    this.isLoading = false;
+  }
   ngOnInit(): void {
+    this.loading?.dismiss();
     this.loginForm = this.fb.group({
       email_id: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -62,8 +66,6 @@ async onLogin() {
     this.authService.login(this.loginForm.value).subscribe(
       (response: any) => {
         
-        debugger;
-      //  this.isLoading = false;
         if (response.status) {
           // ✅ Success: Navigate to dashboard
           localStorage.setItem('userRole', response.usertype);

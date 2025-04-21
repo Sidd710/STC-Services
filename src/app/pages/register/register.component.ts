@@ -85,7 +85,7 @@ export class RegisterComponent implements OnInit {
 
 
 
-  async onRegister() {
+   onRegister() {
     this.submitted = true;
 
     if (this.registerForm.invalid || this.lat === null || this.lng === null) {
@@ -118,11 +118,18 @@ export class RegisterComponent implements OnInit {
             this.showToast(res.msg || 'Registration failed.', 'danger');
             return;
           }
-
           this.showToast('Registered successfully!', 'success');
-          this.router.navigate(['/login'])
-          this.registerForm.reset();
-          this.submitted = false;
+          setTimeout(() => {
+            this.registerForm.reset();
+            this.submitted = false;
+            this.router.navigate(['/login']);
+          }, 500);
+
+          // this.registerForm.reset();
+          // this.submitted = false;
+         
+          // this.router.navigate(['/login'])
+          
 
         },
         (error) => {
