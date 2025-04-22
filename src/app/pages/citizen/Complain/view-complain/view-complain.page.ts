@@ -18,9 +18,11 @@ export class ViewComplainPage implements OnInit {
   filteredComplaints: any[] = [];
   statusFilters = [
     { label: 'All', value: 'all' },
-    { label: 'Ongoing', value: '1' },
-    { label: 'Pending', value: '0' },
-    { label: 'Resolved', value: '2' }, // if applicable
+    { label: 'Registered', value: '1' },
+    { label: 'Ongoing', value: '2' },
+    { label: 'Closed', value: '3' },
+    
+    { label: 'Re-Opened', value: '4' }, // if applicable
   ];
   selectedStatus: string = 'all';
 
@@ -35,6 +37,24 @@ export class ViewComplainPage implements OnInit {
   ) {}
   ngOnInit() {
     this.fetchComplaints();
+  }
+  getStatusLabel(status: any) {
+    const statusLabels:any = {
+      '1': 'Registered',
+      '2': 'Ongoing',
+      '3': 'Closed',
+      '4': 'Re-Opened'
+    };
+    return statusLabels[status] || 'Unknown';
+  }
+  getStatusColor(status: string) {
+    switch (status) {
+      case '1': return 'success';
+      case '2': return 'warning';
+      case '3': return 'danger';
+      case '4': return 'primary';
+      default: return 'medium';
+    }
   }
   goBack() {
     this.location.back();

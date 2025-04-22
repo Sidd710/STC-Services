@@ -23,7 +23,20 @@ export class OtpVerificationPage implements OnInit {
   ) { }
 
   ngOnInit() {
-  
+    const userType = this.authService.getUserType(); // Get stored user type
+    if (userType === '1') {
+      this.router.navigate(['/admin-tabs/viewcomplain']); // Redirect to Sales Dashboard
+    } else if (userType === '2') {
+      const stored = localStorage.getItem('userData');
+      let data = stored ? JSON.parse(stored) : null;
+      if (data.is_otp_verified === "0") {
+     
+      } else {
+        // this.isLoading = false;
+        this.router.navigate(['/citizen-tabs/dashboard']);
+      }
+    }
+
   }
   moveNext(event: any, index: number) {
     const input = event.target;
@@ -58,8 +71,8 @@ export class OtpVerificationPage implements OnInit {
         this.showToast('Please try after sometime', 'danger');
       });
 
-    
-     
+
+
   }
 
   async resendOtp() {

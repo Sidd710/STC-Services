@@ -105,9 +105,10 @@ export class AddComplainPage implements OnInit {
     formData.append('landmark', this.complainForm.value.landmark);
     formData.append('area', this.complainForm.value.area);
     formData.append('pincode', this.complainForm.value.pincode);
+    formData.append('complaint_type',this.complainForm.value.complaint_type)
     formData.append('lat', this.lat.toString());
     formData.append('lng', this.lng.toString());
-    formData.append('image', this.imageFile);
+    formData.append('img_url', this.imageFile);
     if (this.imageFile) {
       formData.append('image', this.imageFile);
     }
@@ -121,7 +122,7 @@ export class AddComplainPage implements OnInit {
         this.showToast('Complaint logged  successfully', 'success');
         setTimeout(() => {
           this.router.navigate(['/citizen-tabs/view-complain']);
-          this.router.navigate(['/login']);
+        //  this.router.navigate(['/login']);
         }, 500);
 
        
