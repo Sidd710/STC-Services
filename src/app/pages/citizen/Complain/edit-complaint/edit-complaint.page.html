@@ -48,14 +48,24 @@
       <img [src]="existingImage" class="image-preview" />
     </ion-item>
 
-    <ion-button *ngIf="existingImage" expand="block" color="danger" fill="outline" (click)="confirmDeleteImage()">
+    <!-- <ion-button *ngIf="existingImage" expand="block" color="danger" fill="outline" (click)="confirmDeleteImage()">
       Delete Existing Image
-    </ion-button>
+    </ion-button> -->
 
-    <ion-item>
+    <!-- <ion-item>
       <ion-label>Select New Image</ion-label>
       <input type="file" (change)="onImageSelect($event)" />
-    </ion-item>
+    </ion-item> -->
+    <div class="image-section">
+      <ion-button expand="block" color="medium" fill="outline" (click)="selectImage()">
+        <ion-icon name="camera-outline" slot="start"></ion-icon>
+        Capture / Select Image
+      </ion-button>
+
+      <div *ngIf="imagePreview" class="image-preview">
+        <img [src]="imagePreview" />
+      </div>
+    </div>
 
     <ion-button expand="block" type="submit" class="ion-margin-top">
       Update Complaint

@@ -48,9 +48,10 @@ export class LoginComponent implements OnInit {
     if (isLoggedIn) {
       const userType = this.authService.getUserType(); // Get stored user type
       if (userType === '1') {
-        this.router.navigate(['/admin-tabs']); // Redirect to Sales Dashboard
+        this.router.navigate(['/admin-tabs'], { replaceUrl: true }); // Redirect to Sales Dashboard
+       
       } else if (userType === '2') {
-        this.router.navigate(['/otp-verification']); // Redirect to Merchant Dashboard
+        this.router.navigate(['/otp-verification'], { replaceUrl: true }); // Redirect to Merchant Dashboard
       }
     }
   }

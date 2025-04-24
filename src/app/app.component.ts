@@ -7,6 +7,7 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { Geolocation } from '@capacitor/geolocation';
 import { Diagnostic } from '@awesome-cordova-plugins/diagnostic/ngx';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,7 @@ export class AppComponent {
 
     this.checkLoginStatus();
   }
+  
   async setStatusBar() {
     if (Capacitor.getPlatform() !== 'web') {
       try {
