@@ -17,6 +17,10 @@
       <ion-input formControlName="pole_no"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label position="floating">Complaint No</ion-label>
+      <ion-input formControlName="complaint_no"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label position="floating">Complaint Type</ion-label>
       <ion-select formControlName="complaint_type" interface="action-sheet" placeholder="Select Type">
         <ion-select-option *ngFor="let type of complaintTypes" [value]="type.id">
@@ -44,7 +48,7 @@
       <ion-input formControlName="pincode"></ion-input>
     </ion-item>
 
-    <ion-item *ngIf="existingImage">
+    <ion-item *ngIf="existingImage" style="height: 200px;">
       <img [src]="existingImage" class="image-preview" />
     </ion-item>
 

@@ -14,17 +14,18 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Pole No: {{ complaint?.pole_no }}</ion-card-title>
+        <ion-card-title style="font-size: 20px;">Complaint No: {{ complaint?.complaint_no }}</ion-card-title>
+       
         <ion-card-subtitle>Status: {{ complaint?.complaint_status }}</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
 
         <p><strong>Type:</strong> {{ complaint?.complaint_type }}</p>
-
+        <p><strong>Pole No:</strong> {{ complaint?.pole_no }}</p>
         <form [formGroup]="statusForm" (ngSubmit)="submitStatusChange()">
-
-          <div *ngIf="complaint?.complaint_status === 'Open'">
+         
+          <div *ngIf="complaint?.complaint_status === 'Registered'">
             <ion-list>
               <ion-radio-group formControlName="status">
                 <ion-item>
@@ -43,7 +44,7 @@
             <ion-list>
               <ion-radio-group formControlName="status">
                 <ion-item>
-                  <ion-label>Closed</ion-label>
+                  <ion-label>Close</ion-label>
                   <ion-radio slot="start" value="3"></ion-radio>
                 </ion-item>
               </ion-radio-group>
@@ -70,7 +71,9 @@
             <ion-label position="floating">Work Done</ion-label>
             <ion-textarea formControlName="work_done" auto-grow="true"></ion-textarea>
           </ion-item>
-
+          <ion-item *ngIf="img_url" style="height: 200px;">
+            <img [src]="img_url" class="image-preview" />
+          </ion-item>
           <div class="ion-margin-top" *ngIf="complaint?.complaint_status !== 'Closed'">
             <ion-button expand="block" type="submit" [disabled]="statusForm.invalid">
               Update Status

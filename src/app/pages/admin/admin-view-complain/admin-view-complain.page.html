@@ -1,87 +1,74 @@
 <ion-header>
- <ion-toolbar color="primary"> 
-<ion-buttons slot="start">
-      <ion-button (click)="goBack()">
-        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>All Complaints</ion-title>
-  </ion-toolbar>
-</ion-header>
+  <ion-toolbar color="primary"> 
+ <ion-buttons slot="start">
+       <ion-button (click)="goBack()">
+         <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+       </ion-button>
+     </ion-buttons>
+     <ion-title>My Complaints</ion-title>
+   </ion-toolbar>
+ </ion-header>
+      <!-- <ion-segment [(ngModel)]="selectedStatus" (ionChange)="filterComplaints()">
+        <ion-segment-button *ngFor="let filter of statusFilters" [value]="filter.value">
+          {{ filter.label }}
+        </ion-segment-button>
+      </ion-segment> -->
+    <!-- </ion-buttons> -->
+ 
 
-<ion-content class="view-complain-bg" [fullscreen]="true">
-
+<ion-content  class="view-complain-bg" [fullscreen]="true">
   <ion-searchbar
-    [(ngModel)]="searchTerm"
-    (ionInput)="filterComplaints()"
-    placeholder="Search complaints..."
-    showClearButton="focus"
-    animated
-  ></ion-searchbar>
-
-  <div class="status-filters">
-    <ion-chip
-      *ngFor="let filter of statusFilters"
-      [color]="filter.value === selectedStatus ? 'primary' : 'light'"
-      (click)="applyStatusFilter(filter.value)"
-    >
-      <ion-label>{{ filter.label }}</ion-label>
-    </ion-chip>
-  </div>
-
+  [(ngModel)]="searchTerm"
+  (ionInput)="filterComplaints()"
+  placeholder="Search complaints..."
+  showClearButton="focus"
+  animated
+></ion-searchbar>
+<div class="status-filters">
+  <ion-chip
+    *ngFor="let filter of statusFilters"
+    [color]="filter.value === selectedStatus ? 'primary' : 'light'"
+    (click)="applyStatusFilter(filter.value)"
+  >
+    <ion-label>{{ filter.label }}</ion-label>
+  </ion-chip>
+</div>
   <ion-grid class="complaint-grid">
     <ion-row>
       <ion-col
         *ngFor="let item of filteredComplaints"
         size="12" size-sm="6" size-md="4" size-lg="3"
       >
-        <ion-card class="compact-card">
+        <div class="complaint-tile">
+          <div class="tile-header">
+            <h2>{{ item.complaint_no }}</h2>
+            <ion-badge [color]="getStatusColor(item.status)">
+              {{ getStatusLabel(item.status) }}
+            </ion-badge>
+          </div>
 
-          <ion-card-header>
-            <ion-card-title class="pole-title">{{ item.pole_no }}</ion-card-title>
-            <ion-chip
-              [color]="getStatusColor(item.complaint_status)"
-              size="small"
-              slot="end"
-            >
-              <ion-label>{{ item.complaint_status }}</ion-label>
-            </ion-chip>
-          </ion-card-header>
+          <div class="tile-details">
+            <p><strong>Pole No:</strong> {{ item.pole_no }}</p>
+            <p><strong>Complaint No:</strong>{{item.complaint_no}}</p>
+            <p><strong>Type:</strong> {{ item.complaint_type }}</p>
+            <p><strong>Area:</strong> {{ item.area }}</p>
+            <p><strong>Pincode:</strong> {{ item.pincode }}</p>
+            <p *ngIf="item.landmark"><strong>Landmark:</strong> {{ item.landmark }}</p>
+          </div>
 
-          <ion-card-content>
-
-            <div *ngIf="item.img_url && item.img_url !== '---'" class="image-preview">
-              <img [src]="item.img_url" />
-            </div>
-
-            <div class="details">
-              <div><strong>Type:</strong> {{ item.complaint_type }}</div>
-              <div><strong>Street:</strong> {{ item.street }}</div>
-              <div><strong>Area:</strong> {{ item.area }}</div>
-              <div><strong>Pincode:</strong> {{ item.pincode }}</div>
-              <div *ngIf="item.landmark"><strong>Landmark:</strong> {{ item.landmark }}</div>
-              <div><strong>Created:</strong> {{ item.created_at | date: 'short' }}</div>
-            </div>
-
-            <div class="card-actions">
-              <ion-button fill="clear" size="small" color="primary" (click)="editComplaint(item.id)">
-                <ion-icon name="create-outline" slot="icon-only"></ion-icon>
-              </ion-button>
+          <div class="tile-actions" *ngIf="item.status != '3'">
+            <ion-button fill="clear" color="primary" (click)="editComplaint(item.id)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
            
-              <!-- <ion-button fill="clear" size="small" color="medium" (click)="openMap(item.pincode)">
-                <ion-icon name="location-outline" slot="icon-only"></ion-icon>
-              </ion-button> -->
-            </div>
-
-          </ion-card-content>
-
-        </ion-card>
+          </div>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <div *ngIf="filteredComplaints.length === 0" class="no-data">
-    <ion-icon name="document-outline" size="large" color="medium"></ion-icon>
-    <p>No complaints found.</p>
+  <div *ngIf="filteredComplaints.length === 0" class="no-data ion-text-center">
+    <ion-icon name="chatbox-ellipses-outline" style="font-size: 48px; color: #ccc;"></ion-icon>
+    <p>No complaints to show right now.</p>
   </div>
 </ion-content>

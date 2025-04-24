@@ -14,7 +14,7 @@ export class ComplaincloseComponent implements OnInit {
 
   complaint: any;
   statusForm: FormGroup;
-
+  img_url:any;
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -37,8 +37,10 @@ export class ComplaincloseComponent implements OnInit {
     if (this.complaint) {
       this.statusForm.patchValue({
         citizen_issue: this.complaint.citizen_issue,
-        work_done:this.complaint.work_done
+        work_done:this.complaint.work_done,
+       
       });
+      this.img_url= this.complaint.imageFile
     }
   }
   ionViewWillEnter() {
@@ -56,6 +58,13 @@ export class ComplaincloseComponent implements OnInit {
     this.api.post<any>(`complaints/getsinglecomplaint`, data).subscribe({
       next: res => {
         this.complaint = res.complaint;
+        this.statusForm.patchValue({
+          citizen_issue: this.complaint.citizen_issue,
+          work_done:this.complaint.work_done,
+         
+        });
+       
+        this.img_url= this.complaint.img_url
       },
       error: () => this.showToast('Failed to load complaint.', 'danger')
     });

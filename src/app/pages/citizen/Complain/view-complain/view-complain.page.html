@@ -8,24 +8,36 @@
      <ion-title>My Complaints</ion-title>
    </ion-toolbar>
  </ion-header>
-      <ion-segment [(ngModel)]="selectedStatus" (ionChange)="filterComplaints()">
+      <!-- <ion-segment [(ngModel)]="selectedStatus" (ionChange)="filterComplaints()">
         <ion-segment-button *ngFor="let filter of statusFilters" [value]="filter.value">
           {{ filter.label }}
         </ion-segment-button>
-      </ion-segment>
+      </ion-segment> -->
     <!-- </ion-buttons> -->
  
 
-<ion-content>
-  <ion-grid class="complaint-board">
+<ion-content  class="view-complain-bg" [fullscreen]="true">
+  <ion-searchbar
+  [(ngModel)]="searchTerm"
+  (ionInput)="filterComplaints()"
+  placeholder="Search complaints..."
+  showClearButton="focus"
+  animated
+></ion-searchbar>
+<div class="status-filters">
+  <ion-chip
+    *ngFor="let filter of statusFilters"
+    [color]="filter.value === selectedStatus ? 'primary' : 'light'"
+    (click)="applyStatusFilter(filter.value)"
+  >
+    <ion-label>{{ filter.label }}</ion-label>
+  </ion-chip>
+</div>
+  <ion-grid class="complaint-grid">
     <ion-row>
       <ion-col
         *ngFor="let item of filteredComplaints"
-        size="12"
-        size-sm="6"
-        size-md="4"
-        size-lg="3"
-        size-xl="2"
+        size="12" size-sm="6" size-md="4" size-lg="3"
       >
         <div class="complaint-tile">
           <div class="tile-header">
@@ -37,6 +49,7 @@
 
           <div class="tile-details">
             <p><strong>Status:</strong> {{ item.complaint_status }}</p>
+            <p><strong>Complaint No</strong>{{item.complaint_no}}</p>
             <p><strong>Type:</strong> {{ item.complaint_type }}</p>
             <p><strong>Area:</strong> {{ item.area }}</p>
             <p><strong>Pincode:</strong> {{ item.pincode }}</p>
@@ -56,8 +69,8 @@
     </ion-row>
   </ion-grid>
 
-  <div *ngIf="filteredComplaints.length === 0" class="no-data">
-    <img src="assets/img/empty-state.svg" alt="No Data" />
+  <div *ngIf="filteredComplaints.length === 0" class="no-data ion-text-center">
+    <ion-icon name="chatbox-ellipses-outline" style="font-size: 48px; color: #ccc;"></ion-icon>
     <p>No complaints to show right now.</p>
   </div>
 </ion-content>

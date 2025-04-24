@@ -13,19 +13,31 @@ export class AdminViewComplainPage {
   complaints: any[] = [];
   filteredComplaints: any[] = [];
   searchTerm: string = '';
-  selectedStatus: string = 'all';
-
+ 
   statusFilters = [
     { label: 'All', value: 'all' },
-    { label: 'Open', value: 'Open' },
-    { label: 'Resolved', value: 'Resolved' },
-    { label: 'Closed', value: 'Closed' }
+    { label: 'Registered', value: '1' },
+    { label: 'Ongoing', value: '2' },
+    { label: 'Closed', value: '3' },
+    
+    { label: 'Re-Opened', value: '4' }, // if applicable
   ];
+  selectedStatus: string = 'all';
+
 
   constructor(private api: ApiService, private router: Router,private location: Location) {}
 
   ionViewWillEnter() {
     this.loadComplaints();
+  }
+  getStatusLabel(status: any) {
+    const statusLabels:any = {
+      '1': 'Registered',
+      '2': 'Ongoing',
+      '3': 'Closed',
+      '4': 'Re-Opened'
+    };
+    return statusLabels[status] || 'Unknown';
   }
   goBack() {
     this.location.back();
@@ -58,17 +70,13 @@ export class AdminViewComplainPage {
     this.selectedStatus = status;
     this.filterComplaints();
   }
-
   getStatusColor(status: string) {
     switch (status) {
-      case 'Open':
-        return 'success';
-      case 'Resolved':
-        return 'warning';
-      case 'Closed':
-        return 'medium';
-      default:
-        return 'medium';
+      case '1': return 'success';
+      case '2': return 'warning';
+      case '3': return 'danger';
+      case '4': return 'primary';
+      default: return 'medium';
     }
   }
 

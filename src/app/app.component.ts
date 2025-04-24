@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
-import { Platform } from '@ionic/angular';
+import { NavController, Platform, ToastController } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { PushNotifications } from '@capacitor/push-notifications';
@@ -19,8 +19,11 @@ export class AppComponent {
   isLoggedIn = false;
   userType:string | null = null;
   userCode:any;
+  lastTimeBackPress = 0;
+  timePeriodToExit = 2000;
   constructor(private router:Router,private authService: AuthService,private platform: Platform,private cdr: ChangeDetectorRef,  
-    private diagnostic: Diagnostic
+    private diagnostic: Diagnostic, 
+    private navCtrl: NavController,  private toastController: ToastController
   ) {
    
     this.authService.isLoggedIn$.subscribe(status => {
@@ -31,12 +34,48 @@ export class AppComponent {
         this.setStatusBar();
         this.initPushNotifications();
       });
+      this.initializeApp();
     }
    // this.initPushNotifications();
 
     this.checkLoginStatus();
   }
   
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.handleBackButton();
+    });
+  }
+  handleBackButton() {
+    this.platform.backButton.subscribeWithPriority(10, async () => {
+      // Handle based on route
+      const currentUrl = this.router.url;
+
+      if (currentUrl === '/admin-tabs/viewcomplain'||currentUrl === '/otp-verification'||currentUrl === '/citizen-tabs/dashboard') {
+        // Double press to exit
+        const currentTime = new Date().getTime();
+
+        if (currentTime - this.lastTimeBackPress < this.timePeriodToExit) {
+          App.exitApp();; // Cordova only
+        } else {
+          this.presentToast('Press back again to exit');
+          this.lastTimeBackPress = currentTime;
+        }
+      } else {
+        // Navigate back if not on home
+        this.navCtrl.back();
+      }
+    });
+  }
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'bottom',
+    });
+    await toast.present();
+  }
+
   async setStatusBar() {
     if (Capacitor.getPlatform() !== 'web') {
       try {

@@ -13,7 +13,6 @@ import { TabsPage } from './pages/citizen/tabs/tabs.page';
 import { ViewComplainPage } from './pages/citizen/Complain/view-complain/view-complain.page';
 import { AddComplainPage } from './pages/citizen/Complain/add-complain/add-complain.page';
 import { ProfilePage } from './pages/citizen/profile/profile.page';
-import { HttpClientModule } from '@angular/common/http';
 import { OtpVerificationPage } from './pages/otp-verification/otp-verification.page';
 import { ResetPasswordPage } from './pages/citizen/profile/reset-password/reset-password.page';
 import { ViewProfilePage } from './pages/citizen/profile/view-profile/view-profile.page';
@@ -25,6 +24,8 @@ import { AdminTabsPage } from './pages/admin/admin-tabs/admin-tabs.page';
 import { AdminViewComplainPage } from './pages/admin/admin-view-complain/admin-view-complain.page';
 import { ComplaincloseComponent } from './pages/admin/complainclose/complainclose.component';
 import { AdminProfilePage } from './pages/admin/profile/profile.page';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 
@@ -51,7 +52,9 @@ import { AdminProfilePage } from './pages/admin/profile/profile.page';
     
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },Diagnostic
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    Diagnostic
   ],
   bootstrap: [AppComponent]
 })

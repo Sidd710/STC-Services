@@ -142,7 +142,8 @@ export class EditComplaintPage implements OnInit {
           area: data.area,
           landmark: data.landmark,
           pincode: data.pincode,
-          img_url: this.imageFile
+          img_url: this.imageFile,
+          complaint_no:data.complaint_no
         });
         this.imagePreview = data.img_url;
       },
@@ -191,11 +192,16 @@ export class EditComplaintPage implements OnInit {
     formData.append('pincode', this.complaintForm.value.pincode);
     formData.append('complaint_type', this.complaintForm.value.complaint_type)
     formData.append('complaint_id', this.complaintId); // Assuming required for update
-    formData.append('  img_url', this.imageFile)
+   // formData.append('  img_url', this.imageFile)
     if (this.newImageFile) {
-      formData.append('image', this.newImageFile);
-    } else if (this.imageDeleted) {
+      formData.append('img_url', this.newImageFile);
+    }
+     else if (this.imageDeleted) {
       formData.append('delete_image', '1');
+    }
+    else
+    {
+       formData.append('img_url', this.imageFile)
     }
 
     this.apiService.postPhoto('complaints/editcomplaint', formData).subscribe({
