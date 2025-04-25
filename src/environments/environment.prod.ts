@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   googleMapsApiKey: 'AIzaSyCe99N83FNGKVhyO1fsR8PZ4vJ5E-4tbrY' ,
-  apiBaseUrl:'https://techwise-apps.com/otdygp/stc-services/api',
+  apiBaseUrl:'https://suntrading.org/stc-services/api',
   firebaseConfig: {
     apiKey: 'AIzaSyDu0h0gi6GS5DyDbKTT0LFCjc7xks-5BrQ',
     authDomain: 'stc-services-45aab.firebaseapp.com',
