@@ -38,10 +38,12 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {
     this.loading?.dismiss();
+    const fcmToken = localStorage.getItem('FCMToken');
+
     this.loginForm = this.fb.group({
       email_id: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      fcm_token:'asd'
+      fcm_token:fcmToken
     });
 
     const isLoggedIn = !!localStorage.getItem('token');
@@ -51,17 +53,19 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/admin-tabs/viewcomplain'], { replaceUrl: true }); // Redirect to Sales Dashboard
        
       } else if (userType === '2') {
+        
         this.router.navigate(['/otp-verification'], { replaceUrl: true }); // Redirect to Merchant Dashboard
       }
     }
   }
 
 async onLogin() {
-    // const payload = {
-    //   email_id: this.username,
-    //   password: this.password,
-    //   fcm_token: "1",
-    // }
+  // const fcmToken = localStorage.getItem('FCMToken');
+  //   const payload = {
+  //     email_id: this.loginForm.value.email_id,
+  //     password: this.loginForm.value.password,
+  //     fcm_token: fcmToken,
+  //   }
     await this.presentLoading();
     //credentials = { email: '', password: '',fcm_token:'' };
     this.authService.login(this.loginForm.value).subscribe(
