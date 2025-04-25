@@ -27,7 +27,7 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Complaint Type</ion-label>
-          <ion-select formControlName="complaint_type" interface="action-sheet">
+          <ion-select formControlName="complaint_type" interface="action-sheet" placeholder="Select Complaint Type">
             <ion-select-option *ngFor="let type of complaintTypes" [value]="type.id">
               {{ type.complaint_type }}
             </ion-select-option>

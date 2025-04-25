@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {
     this.loading?.dismiss();
+    debugger;
     const fcmToken = localStorage.getItem('FCMToken');
 
     this.loginForm = this.fb.group({
@@ -60,7 +61,8 @@ export class LoginComponent implements OnInit {
   }
 
 async onLogin() {
-  // const fcmToken = localStorage.getItem('FCMToken');
+   const fcmToken = localStorage.getItem('FCMToken');
+   this.loginForm.value.fcm_token=fcmToken==null?"1":fcmToken;
   //   const payload = {
   //     email_id: this.loginForm.value.email_id,
   //     password: this.loginForm.value.password,
