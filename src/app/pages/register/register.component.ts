@@ -67,10 +67,10 @@ export class RegisterComponent implements OnInit {
       const formattedAddress: string = result.formatted_address;
       console.log('Formatted Address:', formattedAddress);
 
-      if (!formattedAddress.toLowerCase().includes('ahmedabad')) {
-        this.showToast('Registration allowed only from Ahmedabad.', 'danger');
-        return;
-      }
+      // if (!formattedAddress.toLowerCase().includes('ahmedabad')) {
+      //   this.showToast('Registration allowed only from Ahmedabad.', 'danger');
+      //   return;
+      // }
 
 
 

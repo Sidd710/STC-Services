@@ -87,6 +87,7 @@ async onLogin() {
             } else {
               this.isLoading = false;
               this.router.navigate(['/citizen-tabs/dashboard']);
+              
             }
           } else if (response.usertype === 1) {
             this.router.navigate(['/admin-tabs']); // Redirect to Sales Dashboard

@@ -2,27 +2,47 @@
   <div class="otp-wrapper">
     <div class="otp-card">
       <img src="assets/app-logo.png" alt="App Logo" class="logo" />
-      <h2>OTP Verification</h2>
-      <p class="description">Enter the 6-digit code sent to your registered mobile/email.</p>
+     
+    <h2>OTP Verification</h2>
+    <p class="description">Enter the 6-digit code sent to your registered mobile/email.</p>
 
-      <div class="otp-inputs">
-        <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 0)" [(ngModel)]="otp[0]">
-        <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 1)" [(ngModel)]="otp[1]">
-        <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 2)" [(ngModel)]="otp[2]">
-        <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 3)" [(ngModel)]="otp[3]">
-        <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 4)" [(ngModel)]="otp[4]">
-        <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 5)" [(ngModel)]="otp[5]">
-      
-      </div>
+    <div class="otp-inputs">
+      <!-- <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 0)" [(ngModel)]="otp[0]"> -->
+      <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 0)"
+        (paste)="onPaste($event)" [(ngModel)]="otp[0]">
 
-      <ion-button expand="block" class="verify-btn" (click)="verifyOtp()">
-        Verify
-      </ion-button>
+      <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 1)"
+        [(ngModel)]="otp[1]">
+      <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 2)"
+        [(ngModel)]="otp[2]">
+      <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 3)"
+        [(ngModel)]="otp[3]">
+      <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 4)"
+        [(ngModel)]="otp[4]">
+      <input maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="moveNext($event, 5)"
+        [(ngModel)]="otp[5]">
 
+    </div>
+
+    <ion-button expand="block" class="verify-btn" (click)="verifyOtp()">
+      Verify
+    </ion-button>
+
+    <div class="resend-container">
+      <ion-text color="medium">Didn't receive the code? </ion-text>
+      <!-- <a (click)="resendOtp()">Resend OTP</a> -->
       <div class="resend-container">
-        <ion-text color="medium">Didn't receive the code? </ion-text>
-        <a (click)="resendOtp()">Resend OTP</a>
+        <ion-text color="medium">
+          <ng-container *ngIf="isResendDisabled">
+            Resend OTP in {{ resendTimer }}s
+          </ng-container>
+          <ng-container *ngIf="!isResendDisabled">
+            Didn't receive the code?
+            <a (click)="resendOtp()">Resend OTP</a>
+          </ng-container>
+        </ion-text>
       </div>
     </div>
+  </div>
   </div>
 </ion-content>
